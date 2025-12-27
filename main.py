@@ -141,7 +141,6 @@ class TestUrbanRoutes:
         urban_routes_page.enter_message_for_driver('Stop at the juice bar, please')
 
 
-
     @classmethod
     def teardown_class(cls):
         cls.driver.quit()

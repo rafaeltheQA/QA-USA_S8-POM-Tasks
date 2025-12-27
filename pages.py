@@ -180,7 +180,6 @@ class UrbanRoutesPage:
         return self.driver.find_element(*self.PAYMENT_METHOD_VALUE).text
 
 
-
     def enter_comment(self, text):
         self.driver.find_element(*self.COMMENT_INPUT).send_keys(text)
     def get_driver_comment(self):
