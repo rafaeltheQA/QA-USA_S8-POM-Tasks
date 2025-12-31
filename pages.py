@@ -87,6 +87,7 @@ class UrbanRoutesPage:
         wait = WebDriverWait(self.driver, 10)
         element = wait.until(EC.element_to_be_clickable(self.SEND_SMS_BUTTON_LOCATOR))
         element.click()
+
     def enter_confirmation_code(self):
         code = retrieve_phone_code(self.driver)
         sms_input = self.driver.find_element(*self.CONFIRM_CODE_FIELD_LOCATOR)
