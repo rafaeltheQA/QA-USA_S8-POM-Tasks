@@ -12,10 +12,10 @@ class TestUrbanRoutes:
         from selenium.webdriver import DesiredCapabilities
         capabilities = DesiredCapabilities.CHROME
         capabilities["goog:loggingPrefs"] = {'performance': 'ALL'}
-        cls.driver = webdriver.Chrome
+        cls.driver = webdriver.Chrome()
 
         if is_url_reachable(data.URBAN_ROUTES_URL):
-            print("Connected to Urban Routes server")
+            print("Connected to the Urban Routes server")
         else:
             print("Cannot connect to the Urban Routes. Check the server is on and and still running")
 
@@ -45,6 +45,7 @@ class TestUrbanRoutes:
         urban_routes_page.click_supportive_plan_button()
         urban_routes_page.click_phone_field()
         urban_routes_page.enter_phone_number(data.PHONE_NUMBER)
+        urban_routes_page.enter_sms_input_locator()
         urban_routes_page.send_sms_button()
         urban_routes_page.enter_confirmation_code()
         actual_phone = urban_routes_page.get_phone_number()
@@ -102,10 +103,11 @@ class TestUrbanRoutes:
         urban_routes_page.click_call_taxi_button()
         urban_routes_page.click_supportive_plan_button()
         urban_routes_page.click_phone_field()
-        urban_routes_page.enter_phone_number(self.driver)
+        urban_routes_page.enter_phone_number(data.PHONE_NUMBER)
+        urban_routes_page.enter_sms_input_locator()
         urban_routes_page.send_sms_button()
         urban_routes_page.enter_confirmation_code()
-        urban_routes_page.enter_message_for_driver(data.MESSAGE_FOR_DRIVER)
+        urban_routes_page.enter_comment(data.MESSAGE_FOR_DRIVER)
         urban_routes_page.click_order_button()
         assert urban_routes_page.is_car_search_modal_displayed(), "Car search modal should appear"
 
