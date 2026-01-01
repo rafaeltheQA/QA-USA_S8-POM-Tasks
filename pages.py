@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from helpers import retrieve_phone_code
 
+
 class UrbanRoutesPage:
     FROM_LOCATOR = (By.ID, 'from')
     TO_LOCATOR = (By.ID, 'to')

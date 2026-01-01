@@ -112,6 +112,7 @@ class TestUrbanRoutes:
         assert urban_routes_page.is_car_search_modal_displayed(), "Car search modal should appear"
 
 
+
     @classmethod
     def teardown_class(cls):
         cls.driver.quit()
