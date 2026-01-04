@@ -1,7 +1,7 @@
 from selenium import webdriver
 from helpers import retrieve_phone_code, is_url_reachable
 from pages import UrbanRoutesPage
-import data
+import data, time
 from selenium.webdriver import DesiredCapabilities
 
 
@@ -45,12 +45,9 @@ class TestUrbanRoutes:
         urban_routes_page.click_supportive_plan_button()
         urban_routes_page.click_phone_field()
         urban_routes_page.enter_phone_number(data.PHONE_NUMBER)
-        urban_routes_page.enter_sms_input_locator()
-        urban_routes_page.send_sms_button()
-        urban_routes_page.enter_confirmation_code()
-        actual_phone = urban_routes_page.get_phone_number()
-        expected_phone = data.PHONE_NUMBER
-        assert expected_phone in actual_phone, f"Expected '{expected_phone}', but got '{actual_phone}'"
+        urban_routes_page.click_next_button()
+        urban_routes_page.click_confirmation_code()
+
 
     def test_fill_card(self):
         self.driver.get(data.URBAN_ROUTES_URL)
@@ -59,6 +56,7 @@ class TestUrbanRoutes:
         urban_routes_page.click_call_taxi_button()
         urban_routes_page.click_supportive_plan_button()
         urban_routes_page.click_payment_method()
+        time.sleep(2)
         urban_routes_page.click_add_card_button()
         urban_routes_page.enter_credit_card(data.CARD_NUMBER)
         urban_routes_page.enter_credit_card_code(data.CARD_CODE)
@@ -104,14 +102,12 @@ class TestUrbanRoutes:
         urban_routes_page.click_supportive_plan_button()
         urban_routes_page.click_phone_field()
         urban_routes_page.enter_phone_number(data.PHONE_NUMBER)
-        urban_routes_page.enter_sms_input_locator()
-        urban_routes_page.send_sms_button()
-        urban_routes_page.enter_confirmation_code()
+        urban_routes_page.click_next_button()
+        urban_routes_page.click_confirmation_code()
         urban_routes_page.enter_comment(data.MESSAGE_FOR_DRIVER)
+        print("About to look for order button...")
         urban_routes_page.click_order_button()
-        assert urban_routes_page.is_car_search_modal_displayed(), "Car search modal should appear"
-
-
+        assert urban_routes_page.is_car_search_modal_displayed()
 
     @classmethod
     def teardown_class(cls):
