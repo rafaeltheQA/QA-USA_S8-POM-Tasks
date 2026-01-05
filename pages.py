@@ -18,9 +18,6 @@ class UrbanRoutesPage:
     ACTIVE_SELECTION_VALUE_LOCATOR = (By. CSS_SELECTOR, 'div[class="tcard active"]')
     PHONE_NUMBER_BUTTON_LOCATOR = (By.CSS_SELECTOR, 'div.np-text')
     PHONE_NUMBER_INPUT_LOCATOR = (By.ID, "phone")
-
-
-    SMS_INPUT_LOCATOR = (By.XPATH, "//input[contains(@class, 'input')]")
     CLICK_NEXT_BUTTON = (By. CSS_SELECTOR, "div.buttons button.button.full")
     CLICK_CONFIRM_BUTTON = (By.XPATH, "//button[contains(text(),'Confirm')]")
     CONFIRM_CODE_FIELD_LOCATOR = (By.ID, "code")
@@ -28,20 +25,19 @@ class UrbanRoutesPage:
     ADD_CARD_LOCATOR = (By.XPATH, "//div[contains(text(),'Add card')]")
     ENTER_CREDIT_CARD_LOCATOR = (By.ID, "number")
     ENTER_CREDIT_CARD_CODE_LOCATOR = (By.XPATH, "//input[@placeholder='12']")
-
     LINK_BUTTON_LOCATOR = (By.XPATH, "//button[contains(., 'Link')]")
-    VERIFY_CARD_ADDED_LOCATOR = (By.CLASS_NAME, "checkbox")
     PAYMENT_METHOD_VALUE = (By.XPATH, "//div[@class='pp-value-text']")
     COMMENT_INPUT = (By.ID, "comment")
     BLANKET_TOGGLE_SWITCH = (By.XPATH, "//div[normalize-space()='Blanket and handkerchiefs']/following-sibling::div//div[@class='switch']")
     BLANKET_CHECKBOX = (By. XPATH, "//div[normalize-space()='Blanket and handkerchiefs']/following-sibling::div//input[@type='checkbox']")
-    ICE_CREAM_PLUS_BTN = (By.XPATH, "//div[.='Ice cream']/following::div[contains(@class, 'counter-plus')][1]")
+    ICE_CREAM_PLUS_BTN = (By.XPATH, "//div[text()='Ice cream']/../..//div[@class='counter-plus']")
     ICE_CREAM_COUNT = (By. XPATH, "//div[.='Ice cream']/following::div[contains(@class,'counter-value')][1]")
     MESSAGE_TO_DRIVER_INPUT = (By.ID, "comment")
     CLICK_ORDER_BUTTON = (By.CLASS_NAME, 'smart-button-wrapper')
     CAR_MODAL_LOCATOR = (By.CLASS_NAME, "order")
     OVERLAY = (By.CLASS_NAME, "overlay")
     SMS_WINDOW_LOCATOR = (By.CLASS_NAME, "sms_window")
+    VERIFY_CARD_ADDED_LOCATOR = (By.CLASS_NAME, "checkbox")
 
     def __init__(self, driver):
         self.driver = driver
@@ -92,9 +88,9 @@ class UrbanRoutesPage:
         element.click()
 
     def click_confirmation_code(self):
-        code: str = retrieve_phone_code(self.driver)
-        sms_field = self.driver.find_element(*self.CLICK_CONFIRM_BUTTON)
-        sms_field.send_keys()
+        code = retrieve_phone_code(self.driver)
+        sms_field = self.driver.find_element(*self.CONFIRM_CODE_FIELD_LOCATOR)
+        sms_field.send_keys(code)
 
     def click_confirm_button(self):
         wait = WebDriverWait(self.driver, 10)
@@ -169,6 +165,6 @@ class UrbanRoutesPage:
         try:
             wait = WebDriverWait(self.driver, 10)
             wait.until(EC.visibility_of_element_located(self.CAR_MODAL_LOCATOR))
-            return True
-        except:
             return False
+        except:
+            return True

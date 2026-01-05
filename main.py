@@ -83,7 +83,6 @@ class TestUrbanRoutes:
         urban_routes_page.click_blanket_toggle()
         assert urban_routes_page.is_blanket_selected(),"Blanket and handkerchiefs toggle should be ON"
 
-
     def test_order_2_ice_cream(self):
         self.driver.get(data.URBAN_ROUTES_URL)
         urban_routes_page = UrbanRoutesPage(self.driver)
