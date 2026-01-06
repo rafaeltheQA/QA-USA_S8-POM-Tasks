@@ -47,6 +47,8 @@ class TestUrbanRoutes:
         urban_routes_page.enter_phone_number(data.PHONE_NUMBER)
         urban_routes_page.click_next_button()
         urban_routes_page.click_confirmation_code()
+        urban_routes_page.click_confirm_button()
+        assert urban_routes_page.get_phone_number() == data.PHONE_NUMBER
 
 
     def test_fill_card(self):

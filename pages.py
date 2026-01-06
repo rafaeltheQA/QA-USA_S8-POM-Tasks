@@ -16,10 +16,10 @@ class UrbanRoutesPage:
     CALL_TAXI_BUTTON_LOCATOR = (By.XPATH, '//button[@class="button round"]')
     SUPPORTIVE_PLAN_BUTTON_LOCATOR = (By.XPATH, "//div[contains(text(), 'Supportive')]")
     ACTIVE_SELECTION_VALUE_LOCATOR = (By. CSS_SELECTOR, 'div[class="tcard active"]')
-    PHONE_NUMBER_BUTTON_LOCATOR = (By.CSS_SELECTOR, 'div.np-text')
+    PHONE_NUMBER_BUTTON_LOCATOR = (By.CSS_SELECTOR, '.np-button .np-text')
     PHONE_NUMBER_INPUT_LOCATOR = (By.ID, "phone")
     CLICK_NEXT_BUTTON = (By. CSS_SELECTOR, "div.buttons button.button.full")
-    CLICK_CONFIRM_BUTTON = (By.XPATH, "//button[contains(text(),'Confirm')]")
+    CLICK_CONFIRM_BUTTON = (By.XPATH, '//button[text()="Confirm"]')
     CONFIRM_CODE_FIELD_LOCATOR = (By.ID, "code")
     CLICK_PAYMENT_METHOD_LOCATOR = (By.XPATH, "//div[@class='pp-text']")
     ADD_CARD_LOCATOR = (By.XPATH, "//div[contains(text(),'Add card')]")
@@ -99,9 +99,9 @@ class UrbanRoutesPage:
 
 
     def get_phone_number(self):
-        wait = WebDriverWait(self.driver, 10)
-        element = wait.until(EC.element_to_be_clickable(self.GET_PHONE_NUMBER_LOCATOR))
-        element.click()
+        return WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.PHONE_NUMBER_BUTTON_LOCATOR)
+        ).text
 
     def click_payment_method(self):
         wait = WebDriverWait(self.driver, 10)
